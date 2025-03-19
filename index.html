@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        input {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-left: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover{
+            background-color: rgb(111, 77, 247);
+        }
+        #parent {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .profile-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+            margin: 10px;
+        }
+
+        .profile-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-card h1 {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .profile-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .profile-card a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .profile-card a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Github UI</h1>
+    <input type="text" name="" id="input">
+    <button onclick="fetchData()">CLICK</button>
+    <div id="parent"></div>
+
+
+    <script>
+        function fetchData(){
+            var input = document.getElementById("input").value;
+            var url = `https://api.github.com/users/${input}`
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                var parent = document.getElementById("parent");
+                var div = document.createElement("div");
+                parent.append(div)
+                div.innerHTML=`<img src=${data.avatar_url}/>  <h1>Name: ${data.login}</h1> <h3>id: ${data.id}</h3> <p>DATA BIO: ${data.bio}</p> <p>FOLLOWERS: ${data.followers}</p> <p>FOLLOWING: ${data.following}</p> <p>PUBLIC REP: ${data.public_repos}</p> <a href=${data.html_url} target="_blank"> PROFILE</a>`
+
+            })
+            
+        }
+
+    </script>
+</body>
+</html>
